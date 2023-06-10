@@ -5,6 +5,7 @@ import { initItemModel } from "../models/item.model";
 
 export class ItemService {
   private sequelize: Sequelize;
+  private items: Item[] = [];
 
   constructor(sequelize: Sequelize) {
     // Initialize Sequelize
@@ -70,6 +71,19 @@ export class ItemService {
     } catch (error) {
       console.error("Error getting items:", error);
       throw error;
+    }
+  }
+  async getSingleItem(itemId: number): Promise<Item | null> {
+    const item = this.items.find((item) => item.id === itemId);
+    return item ? item : null;
+  }
+
+  async deleteItem(itemId: string | number): Promise<void> {
+    const index = this.items.findIndex((item) => item.id === itemId);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    } else {
+      throw new Error(`Item with ID ${itemId} not found`);
     }
   }
 }

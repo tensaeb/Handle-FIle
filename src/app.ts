@@ -4,6 +4,7 @@ import { ItemService } from "./services/item.service";
 import { ItemController } from "./controllers/item.controller";
 import { itemRoutes } from "./routes/router";
 import { sequelize } from "../config";
+import cors from "cors";
 
 class App {
   public app: Application;
@@ -18,6 +19,7 @@ class App {
   private config(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(cors()); // Enable CORS middleware
   }
 
   private routes(): void {

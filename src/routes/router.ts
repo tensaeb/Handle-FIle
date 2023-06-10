@@ -11,5 +11,8 @@ export function itemRoutes(itemController: ItemController): express.Router {
     upload.single("file"),
     itemController.uploadExcel.bind(itemController)
   );
+  router.get("/", itemController.getAllItems.bind(itemController));
+  router.get("/:itemId", itemController.getSingleItem.bind(itemController));
+  router.delete("/:itemId", itemController.deleteItem.bind(itemController));
   return router;
 }
